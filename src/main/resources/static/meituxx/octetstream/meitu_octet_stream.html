@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>My Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!--
+    <link rel="shortcut icon" th:href="@{/admin/images/favicon.png}"/>
+    <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/admin/css/style.min.css}" rel="stylesheet" type="text/css"/>
+    -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"/>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"/>
+    <script th:src="@{//cdn.bootcss.com/jquery/2.2.3/jquery.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <![endif]-->
+    <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        window.onload=function(){
+            console.log("dom节点加载完成");
+            // 网页中嵌入美图秀秀的编辑器
+            /*第1个参数是加载编辑器div容器，第2个参数是编辑器类型，第3个参数是div容器宽，第4个参数是div容器高*/
+            xiuxiu.embedSWF("altContent",3,"100%","100%");
+
+
+            //当编辑器初始化完成时调用，必须定义一个在调用事件处理函数时执行的函数。
+            xiuxiu.onInit = function ()
+            {
+                console.log("flash初始化完成");
+                // 编辑器载入图片
+                xiuxiu.loadPhoto("http://open.web.meitu.com/sources/images/1.jpg");
+            }
+
+            //设置上传接口地址，接收图片的地址
+            //修改为您自己的上传接收图片程序
+            xiuxiu.setUploadURL("http://127.0.0.1:8082/meitu/octetstream");
+
+            //图片上传前
+            xiuxiu.onBeforeUpload = function(data, id){
+                //设置上传参数（如无需上传参数可不调用）
+                xiuxiu.setUploadArgs({filetype: data.type, type: "image", filename: data.name });
+            }
+
+            //当上传图片后端响应时调用，必须定义一个在调用事件处理函数时执行的函数。
+            xiuxiu.onUploadResponse = function (data)
+            {
+                console.log("上传响应" + data);
+            }
+        }
+    </script>
+
+    <style type="text/css">
+        html, body { height:100%; overflow:hidden; }
+        body { margin:0; }
+    </style>
+</head>
+<body>
+    <div class="wrapper-page" id="altContent">
+        <div class="ex-page-content text-center">
+            <h1>美图 EXAMPLE!</h1>
+            <h2>图片编辑示例！</h2>
+             <br/>
+            <a class="btn btn-purple waves-effect waves-light" href="/"><i class="fa fa-angle-left"></i> 返回首页</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -292,25 +292,26 @@ public class IndexController extends BaseController {
 
     /**
      * 自定义页面,如关于的页面
+     * @GetMapping(value = "/{pagename}") 这样写我访问根目录静态资源全部跑这里了，改咯！！！
      */
-    @GetMapping(value = "/{pagename}")
-    public String page(@PathVariable String pagename, HttpServletRequest request) {
-        ContentVo contents = contentService.getContents(pagename);
-        if (null == contents) {
-            return this.render_404();
-        }
-        if (contents.getAllowComment()) {
-            String cp = request.getParameter("cp");
-            if (StringUtils.isBlank(cp)) {
-                cp = "1";
-            }
-            PageInfo<CommentBo> commentsPaginator = commentService.getComments(contents.getCid(), Integer.parseInt(cp), 6);
-            request.setAttribute("comments", commentsPaginator);
-        }
-        request.setAttribute("article", contents);
-        updateArticleHit(contents.getCid(), contents.getHits());
-        return this.render("page");
-    }
+//    @GetMapping(value = "/{pagename}")
+//    public String page(@PathVariable String pagename, HttpServletRequest request) {
+//        ContentVo contents = contentService.getContents(pagename);
+//        if (null == contents) {
+//            return this.render_404();
+//        }
+//        if (contents.getAllowComment()) {
+//            String cp = request.getParameter("cp");
+//            if (StringUtils.isBlank(cp)) {
+//                cp = "1";
+//            }
+//            PageInfo<CommentBo> commentsPaginator = commentService.getComments(contents.getCid(), Integer.parseInt(cp), 6);
+//            request.setAttribute("comments", commentsPaginator);
+//        }
+//        request.setAttribute("article", contents);
+//        updateArticleHit(contents.getCid(), contents.getHits());
+//        return this.render("page");
+//    }
 
 
     /**

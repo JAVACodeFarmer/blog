@@ -1,0 +1,6 @@
+用到美图秀秀插件
+crossdomain.xml 这个文件必须是在服务器的根目录: /
+不能够像这种方式：#server.servlet.context-path=/blog，会导致xml取不到
+base64 方式可以不需要 crossdomain.xml 配置
+
+
